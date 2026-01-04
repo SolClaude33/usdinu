@@ -151,6 +151,68 @@
     .tokenomics__item-value {
       background-color: #2a2a2a !important;
     }
+    
+    /* Audio Player Styles */
+    .audio-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+      border: 2px solid #FFD02C;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 200px;
+    }
+    
+    .audio-player audio {
+      display: none;
+    }
+    
+    .audio-player__controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    
+    .audio-player__button {
+      background-color: #FFD02C;
+      border: 2px solid #2a2a2a;
+      color: #000;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .audio-player__button:hover {
+      background-color: #ffd94d;
+      transform: scale(1.1);
+    }
+    
+    .audio-player__button:active {
+      transform: scale(0.95);
+    }
+    
+    .audio-player__button.muted {
+      background-color: #2a2a2a;
+      color: #FFD02C;
+      border-color: #FFD02C;
+    }
+    
+    .audio-player__button.muted:hover {
+      background-color: #3a3a3a;
+    }
 		</style>
 		<script type="module" crossorigin="" src="js/index.minb808.js?v=1760774053690"></script>
 		<link rel="stylesheet" crossorigin="" href="css/index.minb808.css?v=1760774053691">
@@ -571,6 +633,112 @@
 				</div>
 			</footer>
 		</div>
+		
+		<!-- Audio Player -->
+		<div class="audio-player">
+			<audio id="audioPlayer" loop autoplay>
+				<source src="assets/Y.M.C.A. - VILLAGE PEOPLE.mp3" type="audio/mpeg">
+			</audio>
+			<div class="audio-player__controls">
+				<button class="audio-player__button" id="playPauseBtn" title="Play/Pause">▶</button>
+				<button class="audio-player__button" id="stopBtn" title="Stop">■</button>
+				<button class="audio-player__button" id="muteBtn" title="Mute/Unmute">🔊</button>
+			</div>
+		</div>
+		
+		<script>
+			// Audio Player Controls
+			const audio = document.getElementById('audioPlayer');
+			const playPauseBtn = document.getElementById('playPauseBtn');
+			const stopBtn = document.getElementById('stopBtn');
+			const muteBtn = document.getElementById('muteBtn');
+			
+			// Set volume to 50% (0.5)
+			audio.volume = 0.5;
+			
+			let isPlaying = false;
+			let isMuted = false;
+			
+			// Function to try playing audio
+			function tryAutoPlay() {
+				const playPromise = audio.play();
+				if (playPromise !== undefined) {
+					playPromise.then(() => {
+						// Audio started playing
+						playPauseBtn.textContent = '⏸';
+						isPlaying = true;
+					}).catch(error => {
+						// Auto-play was prevented by browser
+						console.log('Auto-play prevented:', error);
+					});
+				}
+			}
+			
+			// Try auto-play on multiple events
+			if (document.readyState === 'complete') {
+				tryAutoPlay();
+			} else {
+				window.addEventListener('load', tryAutoPlay);
+				document.addEventListener('DOMContentLoaded', tryAutoPlay);
+				
+				// Also try when audio can play
+				audio.addEventListener('canplaythrough', () => {
+					tryAutoPlay();
+				}, { once: true });
+				
+				// Try on first user interaction as fallback
+				document.addEventListener('click', () => {
+					if (!isPlaying) {
+						tryAutoPlay();
+					}
+				}, { once: true });
+				
+				document.addEventListener('touchstart', () => {
+					if (!isPlaying) {
+						tryAutoPlay();
+					}
+				}, { once: true });
+			}
+			
+			playPauseBtn.addEventListener('click', () => {
+				if (isPlaying) {
+					audio.pause();
+					playPauseBtn.textContent = '▶';
+					isPlaying = false;
+				} else {
+					audio.play();
+					playPauseBtn.textContent = '⏸';
+					isPlaying = true;
+				}
+			});
+			
+			stopBtn.addEventListener('click', () => {
+				audio.pause();
+				audio.currentTime = 0;
+				playPauseBtn.textContent = '▶';
+				isPlaying = false;
+			});
+			
+			muteBtn.addEventListener('click', () => {
+				if (isMuted) {
+					audio.muted = false;
+					muteBtn.textContent = '🔊';
+					muteBtn.classList.remove('muted');
+					isMuted = false;
+				} else {
+					audio.muted = true;
+					muteBtn.textContent = '🔇';
+					muteBtn.classList.add('muted');
+					isMuted = true;
+				}
+			});
+			
+			// Update play button when audio ends
+			audio.addEventListener('ended', () => {
+				playPauseBtn.textContent = '▶';
+				isPlaying = false;
+			});
+		</script>
 	</body>
 
 <!-- Mirrored from valoramericaneagle.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Jan 2026 05:18:42 GMT -->
