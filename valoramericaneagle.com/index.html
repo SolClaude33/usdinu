@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 	
 <!-- Mirrored from valoramericaneagle.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Jan 2026 05:18:42 GMT -->
 <head>
@@ -213,6 +213,78 @@
     .audio-player__button.muted:hover {
       background-color: #3a3a3a;
     }
+    
+    /* Language Selector Styles */
+    .language-selector {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .language-selector__button {
+      background-color: #FFD02C !important;
+      border-color: #2a2a2a !important;
+      color: #000 !important;
+      padding: 0;
+      border: 2px solid #2a2a2a;
+      border-radius: 0;
+      cursor: pointer;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      min-width: auto;
+      height: auto;
+    }
+    
+    .language-selector__button:hover {
+      background-color: #ffd94d !important;
+    }
+    
+    .header__actions-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .language-selector__dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 5px;
+      background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+      border: 2px solid #FFD02C;
+      border-radius: 5px;
+      min-width: 120px;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .language-selector__dropdown.show {
+      display: block;
+    }
+    
+    .language-selector__option {
+      padding: 12px 20px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .language-selector__option:hover {
+      background-color: #3a3a3a;
+    }
+    
+    .language-selector__option.active {
+      background-color: #FFD02C;
+      color: #000;
+      font-weight: bold;
+    }
 		</style>
 		<script type="module" crossorigin="" src="js/index.minb808.js?v=1760774053690"></script>
 		<link rel="stylesheet" crossorigin="" href="css/index.minb808.css?v=1760774053691">
@@ -231,10 +303,10 @@
 						<nav class="menu__body">
 							<ul class="menu__list">
 								<li class="menu__item">
-									<a href="#" data-fls-scrollto=".about" class="menu__link">About</a>
+									<a href="#" data-fls-scrollto=".about" class="menu__link" data-i18n="menuAbout">关于</a>
 								</li>
 								<li class="menu__item">
-									<a href="#" data-fls-scrollto=".how" class="menu__link">How to Buy</a>
+									<a href="#" data-fls-scrollto=".how" class="menu__link" data-i18n="menuHowToBuy">如何购买</a>
 								</li>
 								<li class="menu__item logo-item">
 									<a href="index.html" class="menu__item-logo">
@@ -242,10 +314,10 @@
 									</a>
 								</li>
 								<li class="menu__item">
-									<a href="#" data-fls-scrollto=".tokenomics" data-fls-scrollto-top="180" class="menu__link">tokenomics</a>
+									<a href="#" data-fls-scrollto=".tokenomics" data-fls-scrollto-top="180" class="menu__link" data-i18n="menuTokenomics">代币经济学</a>
 								</li>
 								<li class="menu__item">
-									<a href="#" data-fls-scrollto=".join" class="menu__link">Join US</a>
+									<a href="#" data-fls-scrollto=".join" class="menu__link" data-i18n="menuJoinUs">加入我们</a>
 								</li>
 							</ul>
 						</nav>
@@ -257,13 +329,25 @@
 									<path d="M7.16633 10.2819L10.1426 14.25H14.5176L9.60633 7.70125L13.6926 3H12.0363L8.8382 6.67875L6.08008 3H1.70508L6.39883 9.25938L2.06133 14.25H3.71758L7.16633 10.2819ZM10.7676 13L4.20508 4.25H5.45508L12.0176 13H10.7676Z" fill="#FFEEC8"></path>
 								</svg>
 							</a>
-							<a href="https://dexscreener.com/solana" target="_blank" class="header__social-item">
-								<img src="assets/img/dexscreener-logo.webp" alt="DexScreener" style="width: 100%; height: 100%; object-fit: contain; transform: scale(0.9); filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);">
+							<a href="https://www.four.meme/" target="_blank" class="header__social-item">
+								<img src="assets/img/apple-touch-icon.png" alt="FourMeme" style="width: 100%; height: 100%; object-fit: contain; transform: scale(0.9); filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);">
 							</a>
 						</div>
-						<a href="https://bonk.fun/" target="_blank" class="header__button">
-							<span>Buy Now</span>
-						</a>
+						<div class="header__actions-right">
+							<div class="language-selector">
+								<button class="language-selector__button header__button" id="languageBtn">
+									<span id="currentLang">中文</span>
+									<span>▼</span>
+								</button>
+								<div class="language-selector__dropdown" id="languageDropdown">
+									<div class="language-selector__option active" data-lang="zh">中文</div>
+									<div class="language-selector__option" data-lang="en">English</div>
+								</div>
+							</div>
+							<a href="https://www.four.meme/" target="_blank" class="header__button">
+								<span data-i18n="buyNow">立即购买</span>
+							</a>
+						</div>
 					</div>
 				</div>
 			</header>
@@ -288,12 +372,12 @@
 								</h2>
 								<div class="about__body">
 									<div class="about__text">
-										<p>
-											Solana doesn't run on whitepapers. It runs on culture.<br>
-											Memes, symbols, and momentum define what moves the chain, and culture decides what lasts. BONK changed the pace, INUs shaped the instinct, and USD1 brought a symbol everyone already understands on sight.
+										<p data-i18n="aboutText1">
+											BNB不靠白皮书运行。它靠文化运行。<br>
+											模因、符号和势头定义了链上的一切，文化决定什么能够持久。FOURMEME改变了节奏，USD1带来了一个大家一眼就能理解的符号。
 										</p>
-										<p>
-											We combined the best of BONK, USD1, and INUs to create the best coin ever made: $USD1NU. A familiar number, a dog-driven identity, and a token built for Solana's speed and attention. $USD1NU is designed to grow beyond expectations the first coin built to outperform the dollar through culture, belief, and momentum.
+										<p data-i18n="aboutText2">
+											我们结合了FOURMEME和USD1的最佳特性，创造了有史以来最好的代币：$USD1NU。一个熟悉的数字，一个以狗为驱动的身份，一个为BNB的速度和关注度而构建的代币。$USD1NU旨在超越预期，这是第一个通过文化、信念和势头来超越美元的代币。
 										</p>
 									</div>
 									<div class="about__body-bottom">
@@ -316,8 +400,8 @@
 									</div>
 								</div>
 								<div class="about__actions">
-									<a href="https://bonk.fun/" target="_blank" class="about__button">
-										<span>Buy Now</span>
+									<a href="https://www.four.meme/" target="_blank" class="about__button">
+										<span data-i18n="buyNow">立即购买</span>
 									</a>
 									<div class="about__social">
 										<a href="https://x.com/Usd1nu" class="about__social-item">
@@ -325,8 +409,8 @@
 												<path d="M9.80703 12.8581L13.9228 18.3455H19.9729L13.1813 9.28936L18.8321 2.78809H16.5417L12.119 7.87537L8.30487 2.78809H2.25476L8.74567 11.4441L2.74741 18.3455H5.03781L9.80703 12.8581ZM14.7871 16.6169L5.71197 4.51669H7.44057L16.5157 16.6169H14.7871Z" fill="#2a2a2a"></path>
 											</svg>
 										</a>
-										<a href="https://dexscreener.com/solana" target="_blank" class="about__social-item">
-											<img src="assets/img/dexscreener-logo.webp" alt="DexScreener" style="width: 100%; height: 100%; object-fit: contain; transform: scale(0.9); filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);">
+										<a href="https://www.four.meme/" target="_blank" class="about__social-item">
+											<img src="assets/img/apple-touch-icon.png" alt="FourMeme" style="width: 100%; height: 100%; object-fit: contain; transform: scale(0.9); filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);">
 										</a>
 									</div>
 								</div>
@@ -441,36 +525,36 @@
 								<div class="how__item">
 									<h3 class="how__item-title">
 										<img alt="Star" src="assets/img/how/Star.webp">
-										<span>Enter on BONK</span>
+										<span data-i18n="howStep1Title">进入FOURMEME</span>
 									</h3>
-									<div class="how__item-text">Head to the launchpad and connect your Phantom wallet.</div>
+									<div class="how__item-text" data-i18n="howStep1Text">前往启动板并连接您的Metamask钱包。</div>
 								</div>
 								<div class="how__item">
 									<h3 class="how__item-title">
 										<img alt="Star" src="assets/img/how/Star.webp">
-										<span>Choose the Swap</span>
+										<span data-i18n="howStep2Title">选择交易对</span>
 									</h3>
-									<div class="how__item-text">Select the USD1 → $USD1NU pair.<br>
-              Fast routes, familiar numbers, pure on-chain culture.</div>
+									<div class="how__item-text" data-i18n="howStep2Text">选择 USD1 → $USD1NU 交易对。<br>
+              快速路由，熟悉的数字，纯粹的链上文化。</div>
 								</div>
 								<div class="how__item">
 									<h3 class="how__item-title">
 										<img alt="Star" src="assets/img/how/Star.webp">
-										<span>Set Your Amount</span>
+										<span data-i18n="howStep3Title">设置金额</span>
 									</h3>
-									<div class="how__item-text">
-										Input your USD1 and check slippage.<br>
-              Liquidity moves fast stay sharp.
+									<div class="how__item-text" data-i18n="howStep3Text">
+										输入您的USD1并检查滑点。<br>
+              流动性变化很快，保持警惕。
 									</div>
 								</div>
 								<div class="how__item">
 									<h3 class="how__item-title">
 										<img alt="Star" src="assets/img/how/Star.webp">
-										<span>Execute the Move</span>
+										<span data-i18n="howStep4Title">执行交易</span>
 									</h3>
-									<div class="how__item-text">
-										Confirm the swap in your wallet.<br>
-              Moments later, $USD1NU lands in your balance.
+									<div class="how__item-text" data-i18n="howStep4Text">
+										在您的钱包中确认交易。<br>
+              片刻之后，$USD1NU将出现在您的余额中。
 									</div>
 								</div>
 								<div class="how__image">
@@ -483,13 +567,13 @@
 						<div class="tokenomics__container">
 							<div class="tokenomics__items">
 								<div class="tokenomics__item">
-									<h3 class="tokenomics__item-title">total supply</h3>
+									<h3 class="tokenomics__item-title" data-i18n="tokenomicsTotalSupply">总供应量</h3>
 									<div class="tokenomics__item-value">1,000,000,000</div>
 								</div>
 							</div>
 							<div class="tokenomics__ca">
 								<div class="tokenomics__ca-body">
-									<span id="tokenValue" style="display: block; width: 100%;">SOON</span>
+									<span id="tokenValue" style="display: block; width: 100%;" data-i18n="tokenomicsSoon">即将推出</span>
 								</div>
 								<button type="button" class="tokenomics__ca-button copy-ca-btn">
 									<svg xmlns="http://www.w3.org/2000/svg" width="29" height="28" viewbox="0 0 29 28" fill="none">
@@ -608,8 +692,8 @@
 								<img alt="USD1NU" src="assets/img/join/eagle.webp">
 							</div>
 							<div class="join__actions">
-								<a href="https://bonk.fun/" target="_blank" class="join__button">
-									<span>Buy Now</span>
+								<a href="https://www.four.meme/" target="_blank" class="join__button">
+									<span data-i18n="buyNow">立即购买</span>
 								</a>
 								<div class="join__social">
 									<a href="https://x.com/Usd1nu" target="_blank" class="join__social-item">
@@ -617,8 +701,8 @@
 											<path d="M10.4207 12.8576L14.5365 18.345H20.5866L13.7949 9.28888L19.4457 2.7876H17.1553L12.7327 7.87488L8.91852 2.7876H2.86841L9.35931 11.4436L3.36106 18.345H5.65146L10.4207 12.8576ZM15.4008 16.6164L6.32562 4.5162H8.05422L17.1294 16.6164H15.4008Z" fill="#EBEBEB"></path>
 										</svg>
 									</a>
-									<a href="https://dexscreener.com/solana" target="_blank" class="join__social-item">
-										<img src="assets/img/dexscreener-logo.webp" alt="DexScreener" style="width: 100%; height: 100%; object-fit: contain; transform: scale(0.9); filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);">
+									<a href="https://www.four.meme/" target="_blank" class="join__social-item">
+										<img src="assets/img/apple-touch-icon.png" alt="FourMeme" style="width: 100%; height: 100%; object-fit: contain; transform: scale(0.9); filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);">
 									</a>
 								</div>
 							</div>
@@ -628,7 +712,7 @@
 			</main>
 			<footer data-fls-footer="" class="footer">
 				<div class="footer__container">
-					<div class="footer__text">All right reserved</div>
+					<div class="footer__text" data-i18n="footerRights">版权所有</div>
 					<div class="footer__text">USD1NU©2026</div>
 				</div>
 			</footer>
@@ -737,6 +821,121 @@
 			audio.addEventListener('ended', () => {
 				playPauseBtn.textContent = '▶';
 				isPlaying = false;
+			});
+		</script>
+		
+		<script>
+			// Translation System
+			const translations = {
+				zh: {
+					buyNow: "立即购买",
+					menuAbout: "关于",
+					menuHowToBuy: "如何购买",
+					menuTokenomics: "代币经济学",
+					menuJoinUs: "加入我们",
+					aboutText1: "BNB不靠白皮书运行。它靠文化运行。<br>模因、符号和势头定义了链上的一切，文化决定什么能够持久。FOURMEME改变了节奏，USD1带来了一个大家一眼就能理解的符号。",
+					aboutText2: "我们结合了FOURMEME和USD1的最佳特性，创造了有史以来最好的代币：$USD1NU。一个熟悉的数字，一个以狗为驱动的身份，一个为BNB的速度和关注度而构建的代币。$USD1NU旨在超越预期，这是第一个通过文化、信念和势头来超越美元的代币。",
+					howStep1Title: "进入FOURMEME",
+					howStep1Text: "前往启动板并连接您的Metamask钱包。",
+					howStep2Title: "选择交易对",
+					howStep2Text: "选择 USD1 → $USD1NU 交易对。<br>快速路由，熟悉的数字，纯粹的链上文化。",
+					howStep3Title: "设置金额",
+					howStep3Text: "输入您的USD1并检查滑点。<br>流动性变化很快，保持警惕。",
+					howStep4Title: "执行交易",
+					howStep4Text: "在您的钱包中确认交易。<br>片刻之后，$USD1NU将出现在您的余额中。",
+					tokenomicsTotalSupply: "总供应量",
+					tokenomicsSoon: "即将推出",
+					footerRights: "版权所有"
+				},
+				en: {
+					buyNow: "Buy Now",
+					menuAbout: "About",
+					menuHowToBuy: "How to Buy",
+					menuTokenomics: "tokenomics",
+					menuJoinUs: "Join US",
+					aboutText1: "BNB doesn't run on whitepapers. It runs on culture.<br>Memes, symbols, and momentum define what moves the chain, and culture decides what lasts. FOURMEME changed the pace, USD1 brought a symbol everyone already understands on sight.",
+					aboutText2: "We combined the best of FOURMEME and USD1 to create the best coin ever made: $USD1NU. A familiar number, a dog-driven identity, and a token built for BNB's speed and attention. $USD1NU is designed to grow beyond expectations the first coin built to outperform the dollar through culture, belief, and momentum.",
+					howStep1Title: "ENTER ON FOURMEME",
+					howStep1Text: "Head to the launchpad and connect your Metamask.",
+					howStep2Title: "Choose the Swap",
+					howStep2Text: "Select the USD1 → $USD1NU pair.<br>Fast routes, familiar numbers, pure on-chain culture.",
+					howStep3Title: "Set Your Amount",
+					howStep3Text: "Input your USD1 and check slippage.<br>Liquidity moves fast stay sharp.",
+					howStep4Title: "Execute the Move",
+					howStep4Text: "Confirm the swap in your wallet.<br>Moments later, $USD1NU lands in your balance.",
+					tokenomicsTotalSupply: "total supply",
+					tokenomicsSoon: "SOON",
+					footerRights: "All right reserved"
+				}
+			};
+			
+			// Get current language from localStorage or default to Chinese
+			let currentLang = localStorage.getItem('language') || 'zh';
+			
+			// Function to translate the page
+			function translatePage(lang) {
+				currentLang = lang;
+				localStorage.setItem('language', lang);
+				document.documentElement.lang = lang;
+				
+				// Update all elements with data-i18n attribute
+				document.querySelectorAll('[data-i18n]').forEach(element => {
+					const key = element.getAttribute('data-i18n');
+					if (translations[lang] && translations[lang][key]) {
+						if (element.tagName === 'SPAN' || element.tagName === 'A' || element.tagName === 'DIV' || element.tagName === 'P') {
+							element.innerHTML = translations[lang][key];
+						} else {
+							element.textContent = translations[lang][key];
+						}
+					}
+				});
+				
+				// Update language selector button
+				const currentLangSpan = document.getElementById('currentLang');
+				if (currentLangSpan) {
+					currentLangSpan.textContent = lang === 'zh' ? '中文' : 'English';
+				}
+				
+				// Update active option in dropdown
+				document.querySelectorAll('.language-selector__option').forEach(option => {
+					if (option.getAttribute('data-lang') === lang) {
+						option.classList.add('active');
+					} else {
+						option.classList.remove('active');
+					}
+				});
+			}
+			
+			// Initialize language on page load
+			document.addEventListener('DOMContentLoaded', () => {
+				translatePage(currentLang);
+				
+				// Language selector button click
+				const languageBtn = document.getElementById('languageBtn');
+				const languageDropdown = document.getElementById('languageDropdown');
+				
+				if (languageBtn && languageDropdown) {
+					languageBtn.addEventListener('click', (e) => {
+						e.stopPropagation();
+						languageDropdown.classList.toggle('show');
+					});
+					
+					// Close dropdown when clicking outside
+					document.addEventListener('click', (e) => {
+						if (!languageBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+							languageDropdown.classList.remove('show');
+						}
+					});
+					
+					// Language option clicks
+					document.querySelectorAll('.language-selector__option').forEach(option => {
+						option.addEventListener('click', () => {
+							const lang = option.getAttribute('data-lang');
+							translatePage(lang);
+							languageDropdown.classList.remove('show');
+						});
+					});
+				}
 			});
 		</script>
 	</body>
